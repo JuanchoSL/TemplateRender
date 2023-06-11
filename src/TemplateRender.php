@@ -193,7 +193,6 @@ class TemplateRender
         ob_clean();
         include_once $filename;
         $content = ob_get_clean();
-        ob_end_clean();
 
         //eliminamos las variables pasadas para el fetch porque si encadenamos varios se heredan las variables
         if (isset($vars) && is_array($vars) && count($vars) > 0) {
