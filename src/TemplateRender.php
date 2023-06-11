@@ -1,6 +1,6 @@
 <?php
 
-namespace JuanchoLS\TemplateRender;
+namespace JuanchoSL\TemplateRender;
 
 /*
  * Acceso y gestión para el uso de plantillas
@@ -61,12 +61,12 @@ class TemplateRender
     /**
      * Establece el valor para la extensión a usar por defecto a utilizar para las plantillas
      * @param string $templates_extension Extensión a utilizar
-     * @internal Por defecto .tpl.php para separar vistas de lógicas
+     * @internal Por defecto tpl.php para separar vistas de lógicas
      */
     public function setTemplatesExtension($templates_extension)
     {
-        if ($templates_extension[0] != '.') {
-            $templates_extension = '.' . $templates_extension;
+        if ($templates_extension[0] == '.') {
+            $templates_extension = substr($templates_extension, 1);
         }
         $this->templates_extension = $templates_extension;
         return $this;
@@ -187,7 +187,7 @@ class TemplateRender
         if (count($vars)) {
             $this->setVars($vars);
         }
-        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . $this->templates_extension));
+        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         ob_start();
         ob_clean();
@@ -215,7 +215,7 @@ class TemplateRender
                 $this->setVar($var, $value);
             }
         }
-        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . $this->templates_extension));
+        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         include $filename;
         //eliminamos las variables pasadas para el fetch porque si encadenamos varios se heredan las variables

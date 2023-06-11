@@ -23,7 +23,6 @@
     ],
     "require": {
         "php": "^7.1 || ^8.0",
-        "ext-imap": "*",
         "ext-mbstring": "*",
         "ext-fileinfo": "*",
         "juanchosl/exceptions": "^1.0"
