@@ -1,6 +1,6 @@
 <?php
 
-namespace Bicicletas\Controllers;
+namespace JuanchoLS\TemplateRender;
 
 /*
  * Acceso y gestión para el uso de plantillas
