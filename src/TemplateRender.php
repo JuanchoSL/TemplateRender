@@ -187,7 +187,7 @@ class TemplateRender
         if (count($vars)) {
             $this->setVars($vars);
         }
-        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
+        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         ob_start();
         ob_clean();
@@ -215,7 +215,7 @@ class TemplateRender
                 $this->setVar($var, $value);
             }
         }
-        $filename = str_replace("//", "/", str_replace("\\", "/", $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
+        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         include $filename;
         //eliminamos las variables pasadas para el fetch porque si encadenamos varios se heredan las variables
