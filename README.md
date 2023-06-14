@@ -25,7 +25,7 @@ On _index.tpl.php_ we can have:
 <h2><?= $this->getVar('subtitle'); ?></h2>
 ```
 
-We can include other templates from the original templates using _fetch_ method
+We can include other templates from the original templates using _fetch_ method, for use menu.tpl.php
 
 ```
 <h1><?= $this->getVar('title'); ?></h1>
