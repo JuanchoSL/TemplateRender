@@ -2,6 +2,9 @@
 
 namespace JuanchoSL\TemplateRender;
 
+use JuanchoSL\DataTransfer\Contracts\DataTransferInterface;
+use JuanchoSL\DataTransfer\DataTransferFactory;
+
 /*
  * Acceso y gestión para el uso de plantillas
  *
@@ -18,7 +21,8 @@ class TemplateRender
      * @param array<string, string> $vars Array asociativo de Variables a usar
      */
     private array $vars = array();
-    
+    private DataTransferInterface $variables;
+
     /**
      * @param string $templates_dir Ruta de la carpeta de plantillas a usar
      */
@@ -39,6 +43,7 @@ class TemplateRender
     {
         $this->setTemplatesDir($templates_dir);
         $this->setTemplatesExtension($templates_extension);
+        $this->variables = DataTransferFactory::create([]);
     }
 
     /**
@@ -56,7 +61,7 @@ class TemplateRender
      * @param string $templates_dir Directorio de plantillas
      * @return TemplateRender
      */
-    public function setTemplatesDir($templates_dir): self
+    public function setTemplatesDir(string $templates_dir): self
     {
         $this->templates_dir = $templates_dir;
         return $this;
@@ -76,7 +81,7 @@ class TemplateRender
      * @param string $templates_extension Extensión a utilizar
      * @return TemplateRender
      */
-    public function setTemplatesExtension($templates_extension): self
+    public function setTemplatesExtension(string $templates_extension): self
     {
         if ($templates_extension[0] == '.') {
             $templates_extension = substr($templates_extension, 1);
@@ -91,13 +96,12 @@ class TemplateRender
      * @param mixed $params Array de variables a formatear en la cadena a devolver
      * @return mixed Valor de la variable especificada o null si no existe
      */
-    public function getVar($name, $params = null): mixed
+    public function getVar(string $name, array $params = null): mixed
     {
-        if (isset($this->vars[$name])) {
-            return (!is_null($params)) ? $this->formatVar($this->vars[$name], $params) : $this->vars[$name];
-        } else {
-            return null;
+        if ($this->variables->has($name)){
+            return (!is_null($params)) ? $this->formatVar($this->variables->get($name), $params) : $this->variables->get($name);
         }
+        return null;
     }
 
     /**
@@ -108,7 +112,7 @@ class TemplateRender
      */
     public function setVar($name, $value): self
     {
-        $this->vars[$name] = $value;
+        $this->variables->set($name, $value);
         return $this;
     }
 
@@ -119,11 +123,9 @@ class TemplateRender
      */
     public function setVars(array $vars): self
     {
-        // if (is_array($vars) AND array_walk(array_keys($vars), 'is_string')) {
         foreach ($vars as $name => $value) {
             $this->setVar($name, $value);
         }
-        //}
         return $this;
     }
 
@@ -132,9 +134,9 @@ class TemplateRender
      * @param string $var Nombre de la variable a comprobar
      * @return boolean True si está seteada, false si no lo está
      */
-    public function issetVar($var): bool
+    public function issetVar(string $var): bool
     {
-        return (isset($this->vars[$var]));
+        return $this->variables->has($var);
     }
 
     /**
@@ -142,11 +144,9 @@ class TemplateRender
      * @param string $var Nombre de la variable a eliminar
      * @return TemplateRender
      */
-    public function unsetVar($var): self
+    public function unsetVar(string $var): self
     {
-        if (isset($this->vars[$var])) {
-            unset($this->vars[$var]);
-        }
+        $this->variables->unset($var);
         return $this;
     }
 
@@ -154,9 +154,9 @@ class TemplateRender
      * Devuelve todo el array de variables de la plantilla
      * @return array<string, string> Arreglo de las variables seteadas
      */
-    public function getVars(): array
+    public function getVars(): DataTransferInterface
     {
-        return $this->vars;
+        return $this->variables;
     }
 
     /**
@@ -164,7 +164,7 @@ class TemplateRender
      * @param array<string, string> $values Array asociativo de variables para usar en la plantilla
      * @return TemplateRender
      */
-    public function fillVar($varname, array $values): self
+    public function fillVar(string $varname, array $values): self
     {
         if ($this->issetVar($varname)) {
             $string = $this->formatVar($this->getVar($varname), $values);
@@ -178,7 +178,7 @@ class TemplateRender
      * @param array<string, string> $values Array asociativo de variables para usar en la plantilla
      * @return string Cadena resultante
      */
-    private function formatVar($string, array $values, string $delimiter = '@@'): string
+    private function formatVar(string $string, array $values, string $delimiter = '@@'): string
     {
         foreach ($values as $var => $value) {
             if (!is_numeric($var)) {
@@ -197,7 +197,7 @@ class TemplateRender
      * @param string $name Nombre de la variable a mostrar
      * @param array<string, string> $fill Array asociativo de variables para usar en la plantilla
      */
-    public function printVar($name, array $fill = array()): void
+    public function printVar(string $name, array $fill = array()): void
     {
         if (count($fill) > 0) {
             $this->fillVar($name, $fill);
@@ -211,9 +211,9 @@ class TemplateRender
      * @param array<string, string> $vars Array asociativo de variables para usar en la plantilla
      * @return string|false Resultado de la renderización de la plantilla
      */
-    public function render($template, array $vars = []): string|false
+    public function render(string $template, array $vars = []): string|false
     {
-        if (count($vars)) {
+        if (!empty($vars)) {
             $this->setVars($vars);
         }
         $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
@@ -223,10 +223,9 @@ class TemplateRender
         include_once $filename;
         $content = ob_get_clean();
 
-        //eliminamos las variables pasadas para el fetch porque si encadenamos varios se heredan las variables
         if (count($vars) > 0) {
             foreach (array_keys($vars) as $var) {
-                unset($this->vars[$var]);
+                $this->variables->unset($var);
             }
         }
         return $content;
@@ -237,23 +236,17 @@ class TemplateRender
      * @param string $template Nombre de la plantilla a integrar
      * @param array<string, string> $vars Array asociativo de variables para usar en la plantilla
      */
-    protected function fetch(string $template, array $vars = null): void
+    protected function fetch(string $template, array $vars = []): void
     {
-        if (isset($vars) && is_array($vars) && count($vars)) {
-            foreach ($vars as $var => $value) {
-                $this->setVar($var, $value);
-            }
+        foreach ($vars as $var => $value) {
+            $this->setVar($var, $value);
         }
         $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
-
+        
         include $filename;
-        //eliminamos las variables pasadas para el fetch porque si encadenamos varios se heredan las variables
-        if (isset($vars) && is_array($vars) && count($vars) > 0) {
-            foreach (array_keys($vars) as $var) {
-                unset($this->vars[$var]);
-            }
+        foreach (array_keys($vars) as $var) {
+            $this->unsetVar($var);
         }
-        return;
     }
 
 }
