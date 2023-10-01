@@ -19,7 +19,7 @@ class RenderTest extends TestCase
         $class = new TemplateRender(__DIR__, 'tpl.php');
         $this->assertEquals(__DIR__, $class->getTemplatesDir());
     }
-    
+
     public function testReadTemplateExtension()
     {
         $class = new TemplateRender(__DIR__, '.tpl');
@@ -31,6 +31,16 @@ class RenderTest extends TestCase
         $class = new TemplateRender(__DIR__, 'tpl.php');
         $class->setVar('clave', 'valor');
         $this->assertEquals('valor', $class->getVar('clave'));
+    }
+    public function testReadLoadedComplexVars()
+    {
+        $sub_variables = ['valor_1', 'valor_2'];
+        $class = new TemplateRender(__DIR__, 'tpl.php');
+        $class->setVar('clave', $sub_variables);
+        $this->assertIsIterable($class->getVar('clave'));
+        foreach ($class->getVar('clave') as $key => $value) {
+            $this->assertEquals($sub_variables[$key], $value);
+        }
     }
 
     public function testIssetLoadedVars()
