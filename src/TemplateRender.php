@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JuanchoSL\TemplateRender;
 
 use JuanchoSL\DataTransfer\Contracts\DataTransferInterface;
