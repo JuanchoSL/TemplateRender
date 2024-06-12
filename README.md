@@ -5,21 +5,21 @@ A small, lightweight utility to render templates
 
 
 ## Install
-```
+```bash
 composer require juanchosl/templaterender
 ```
 
 ## How use it
 Load composer autoload and use the JuanchoSL\TemplateRender class
 
-```
+```php
 $template_render = new TemplateRender(TEMPLATES_DIR, 'tpl.php');
 $templates_render->setVar('title','Title of the page');
 echo $templates_render->render('index', ['subtitle' => 'This is a subtitle']);
 ```
 On _index.tpl.php_ we can have:
 
-```
+```html
 <h1><?= $this->getVar('title'); ?></h1>
 
 <h2><?= $this->getVar('subtitle'); ?></h2>
@@ -27,7 +27,7 @@ On _index.tpl.php_ we can have:
 
 We can include other templates from the original templates using _fetch_ method, for use menu.tpl.php
 
-```
+```html
 <h1><?= $this->getVar('title'); ?></h1>
 
 <h2><?= $this->getVar('subtitle'); ?></h2>

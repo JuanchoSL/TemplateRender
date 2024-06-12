@@ -1,10 +1,19 @@
 # Change Log TemplateRender
 
 
-## [1.0.1] - 2023-09-30
+## [1.0.2] - 2024-06-12
 
 ### Added
 
+- Strict types declaration
+
+### Changed
+### Fixed
+
+
+## [1.0.1] - 2023-09-30
+
+### Added
 ### Changed
 
 - Changed variables container in order to set complex data as arrays or objects instead only strings using DataTransfer entities
