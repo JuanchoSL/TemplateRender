@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JuanchoSL\TemplateRender;
 
 use JuanchoSL\DataTransfer\Contracts\DataTransferInterface;
-use JuanchoSL\DataTransfer\DataTransferFactory;
+use JuanchoSL\DataTransfer\Factories\DataTransferFactory;
 
 /*
  * Acceso y gestión para el uso de plantillas
