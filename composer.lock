@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "juanchosl/datatransfer",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/DataTransfer.git",
-                "reference": "167a2b68ea826c9378f6b9270ca3debe5ab7395b"
+                "reference": "75d83fed33ce2259c700bfcdd8c88e5e2a237f1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/167a2b68ea826c9378f6b9270ca3debe5ab7395b",
-                "reference": "167a2b68ea826c9378f6b9270ca3debe5ab7395b",
+                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/75d83fed33ce2259c700bfcdd8c88e5e2a237f1d",
+                "reference": "75d83fed33ce2259c700bfcdd8c88e5e2a237f1d",
                 "shasum": ""
             },
             "require": {
@@ -55,9 +55,9 @@
                 "values"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/DataTransfer/tree/1.0.5"
+                "source": "https://github.com/JuanchoSL/DataTransfer/tree/1.0.6"
             },
-            "time": "2024-06-13T23:45:06+00:00"
+            "time": "2024-06-19T22:59:59+00:00"
         },
         {
             "name": "juanchosl/exceptions",
