@@ -227,7 +227,7 @@ class TemplateRender
 
         if (count($vars) > 0) {
             foreach (array_keys($vars) as $var) {
-                $this->variables->unset($var);
+                $this->variables->remove($var);
             }
         }
         return $content;
