@@ -148,7 +148,7 @@ class TemplateRender
      */
     public function unsetVar(string $var): self
     {
-        $this->variables->unset($var);
+        $this->variables->remove($var);
         return $this;
     }
 
