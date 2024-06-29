@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3a3f28bfc825fd46c0d04585cbceff9",
+    "content-hash": "6377de043f338097ee16774e35a8dace",
     "packages": [
         {
             "name": "juanchosl/datatransfer",
