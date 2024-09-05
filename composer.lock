@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09a8991a1218bceed8532bbebd650261",
+    "content-hash": "4cb3cee28706fb8f83657818e165db9f",
     "packages": [
         {
             "name": "juanchosl/datatransfer",
-            "version": "dev-feature/data-container",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/DataTransfer.git",
-                "reference": "5175f07a4b1cf189ba99d21e9dcb656f916c771d"
+                "reference": "efeac6968de3c222a3366a9d7233ac6422cac03a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/5175f07a4b1cf189ba99d21e9dcb656f916c771d",
-                "reference": "5175f07a4b1cf189ba99d21e9dcb656f916c771d",
+                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/efeac6968de3c222a3366a9d7233ac6422cac03a",
+                "reference": "efeac6968de3c222a3366a9d7233ac6422cac03a",
                 "shasum": ""
             },
             "require": {
@@ -56,6 +56,8 @@
                 "array",
                 "csv",
                 "data converter",
+                "data transfer objects",
+                "dto",
                 "entity",
                 "file contents",
                 "ini",
@@ -67,9 +69,9 @@
                 "yaml"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/DataTransfer/tree/feature/data-container"
+                "source": "https://github.com/JuanchoSL/DataTransfer/tree/develop"
             },
-            "time": "2024-07-04T00:19:28+00:00"
+            "time": "2024-09-05T22:13:00+00:00"
         },
         {
             "name": "juanchosl/exceptions",
@@ -547,28 +549,28 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "39d628812d8d83344a6c1b07799e3700d830d355"
+                "reference": "85402a822d1ecf1db1096959413d35e1c37cf1a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/39d628812d8d83344a6c1b07799e3700d830d355",
-                "reference": "39d628812d8d83344a6c1b07799e3700d830d355",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/85402a822d1ecf1db1096959413d35e1c37cf1a5",
+                "reference": "85402a822d1ecf1db1096959413d35e1c37cf1a5",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.18 || ^5.0",
+                "nikic/php-parser": "^4.19.1 || ^5.1.0",
                 "php": ">=7.3",
-                "phpunit/php-file-iterator": "^3.0.3",
-                "phpunit/php-text-template": "^2.0.2",
-                "sebastian/code-unit-reverse-lookup": "^2.0.2",
-                "sebastian/complexity": "^2.0",
-                "sebastian/environment": "^5.1.2",
-                "sebastian/lines-of-code": "^1.0.3",
-                "sebastian/version": "^3.0.1",
-                "theseer/tokenizer": "^1.2.0"
+                "phpunit/php-file-iterator": "^3.0.6",
+                "phpunit/php-text-template": "^2.0.4",
+                "sebastian/code-unit-reverse-lookup": "^2.0.3",
+                "sebastian/complexity": "^2.0.3",
+                "sebastian/environment": "^5.1.5",
+                "sebastian/lines-of-code": "^1.0.4",
+                "sebastian/version": "^3.0.2",
+                "theseer/tokenizer": "^1.2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "^9.6"
@@ -580,7 +582,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "9.2-dev"
+                    "dev-main": "9.2.x-dev"
                 }
             },
             "autoload": {
@@ -609,7 +611,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.32"
             },
             "funding": [
                 {
@@ -617,7 +619,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-29T07:23:05+00:00"
+            "time": "2024-08-22T04:23:01+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

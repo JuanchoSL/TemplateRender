@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace JuanchoSL\TemplateRender;
 
 use JuanchoSL\DataTransfer\Contracts\DataTransferInterface;
-use JuanchoSL\DataTransfer\Factories\DataTransferFactory;
-use JuanchoSL\DataTransfer\Repositories\DataContainer;
+use JuanchoSL\DataTransfer\DataContainer;
 
 /*
  * Acceso y gestión para el uso de plantillas
@@ -46,7 +45,7 @@ class TemplateRender
     {
         $this->setTemplatesDir($templates_dir);
         $this->setTemplatesExtension($templates_extension);
-        $this->variables = DataTransferFactory::create([]);
+        $this->variables = new DataContainer;
     }
 
     /**
@@ -217,7 +216,7 @@ class TemplateRender
     public function render(string $template, array $vars = []): string|false
     {
         if (!empty($vars)) {
-            $this->setVars($vars);
+            //$this->setVars($vars);
         }
         //        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
@@ -229,7 +228,7 @@ class TemplateRender
 
         if (count($vars) > 0) {
             foreach (array_keys($vars) as $var) {
-                $this->variables->remove($var);
+                //$this->variables->remove($var);
             }
         }
         return $content;
@@ -247,14 +246,14 @@ class TemplateRender
         if (!empty($vars)) {
             extract($vars);
             foreach ($vars as $var => $value) {
-                $this->setVar($var, $value);
+                //$this->setVar($var, $value);
             }
         }
         $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         include $filename;
         foreach (array_keys($vars) as $var) {
-            $this->variables->remove($var);
+            //$this->variables->remove($var);
         }
     }
 
