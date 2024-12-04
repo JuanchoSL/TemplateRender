@@ -1,13 +1,28 @@
 # Change Log TemplateRender
 
 
+## [1.0.4] - 2024-12-04
+
+### Added
+- test PHP 8.4 cumpatibility
+- nullable parameter types
+
+### Changed
+- composer update
+
+### Fixed
+- change DataTransfer to DataContainer in order to avoid undesired conversion of html as xml and read image files 
+
+
 ## [1.0.3] - 2024-06-23
 
 ### Added
 
 ### Changed
+
 ### Fixed
 - change DTO unset method
+
 
 ## [1.0.2] - 2024-06-12
 

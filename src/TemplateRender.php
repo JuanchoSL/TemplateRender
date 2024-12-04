@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JuanchoSL\TemplateRender;
 
 use JuanchoSL\DataTransfer\Contracts\DataTransferInterface;
-use JuanchoSL\DataTransfer\Factories\DataTransferFactory;
+use JuanchoSL\DataTransfer\DataContainer;
 
 /*
  * Acceso y gestión para el uso de plantillas
@@ -23,7 +23,7 @@ class TemplateRender
      * @param array<string, string> $vars Array asociativo de Variables a usar
      */
     private array $vars = array();
-    private DataTransferInterface $variables;
+    private DataContainer $variables;
 
     /**
      * @param string $templates_dir Ruta de la carpeta de plantillas a usar
@@ -45,7 +45,7 @@ class TemplateRender
     {
         $this->setTemplatesDir($templates_dir);
         $this->setTemplatesExtension($templates_extension);
-        $this->variables = DataTransferFactory::create([]);
+        $this->variables = new DataContainer;
     }
 
     /**
@@ -98,9 +98,9 @@ class TemplateRender
      * @param mixed $params Array de variables a formatear en la cadena a devolver
      * @return mixed Valor de la variable especificada o null si no existe
      */
-    public function getVar(string $name, array $params = null): mixed
+    public function getVar(string $name, ?array $params = null): mixed
     {
-        if ($this->variables->has($name)){
+        if ($this->variables->has($name)) {
             return (!is_null($params)) ? $this->formatVar($this->variables->get($name), $params) : $this->variables->get($name);
         }
         return null;
@@ -176,7 +176,7 @@ class TemplateRender
     }
 
     /**
-     * @param string $string String original von variables a ser traducidas 
+     * @param string $string String original con variables a ser traducidas 
      * @param array<string, string> $values Array asociativo de variables para usar en la plantilla
      * @return string Cadena resultante
      */
@@ -216,18 +216,19 @@ class TemplateRender
     public function render(string $template, array $vars = []): string|false
     {
         if (!empty($vars)) {
-            $this->setVars($vars);
+            //$this->setVars($vars);
         }
-        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
+        //        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         ob_start();
         ob_clean();
-        include_once $filename;
+        $this->fetch($template, $vars);
+        //        include_once $filename;
         $content = ob_get_clean();
 
         if (count($vars) > 0) {
             foreach (array_keys($vars) as $var) {
-                $this->variables->unset($var);
+                //$this->variables->remove($var);
             }
         }
         return $content;
@@ -240,14 +241,19 @@ class TemplateRender
      */
     protected function fetch(string $template, array $vars = []): void
     {
-        foreach ($vars as $var => $value) {
-            $this->setVar($var, $value);
+        $globals = json_decode(json_encode($this->variables), true);
+        extract($globals);
+        if (!empty($vars)) {
+            extract($vars);
+            foreach ($vars as $var => $value) {
+                //$this->setVar($var, $value);
+            }
         }
         $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
-        
+
         include $filename;
         foreach (array_keys($vars) as $var) {
-            $this->unsetVar($var);
+            //$this->variables->remove($var);
         }
     }
 
