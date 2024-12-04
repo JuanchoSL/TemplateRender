@@ -98,7 +98,7 @@ class TemplateRender
      * @param mixed $params Array de variables a formatear en la cadena a devolver
      * @return mixed Valor de la variable especificada o null si no existe
      */
-    public function getVar(string $name, array $params = null): mixed
+    public function getVar(string $name, ?array $params = null): mixed
     {
         if ($this->variables->has($name)) {
             return (!is_null($params)) ? $this->formatVar($this->variables->get($name), $params) : $this->variables->get($name);
