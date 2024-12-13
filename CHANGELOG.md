@@ -1,11 +1,12 @@
 # Change Log TemplateRender
 
 
-## [1.0.4] - 2024-12-04
+## [1.0.4] - 2024-12-13
 
 ### Added
 - test PHP 8.4 cumpatibility
 - nullable parameter types
+- check php 8.4 compatibility
 
 ### Changed
 - composer update
