@@ -22,18 +22,18 @@ class TemplateRender
     /**
      * @param array<string, string> $vars Array asociativo de Variables a usar
      */
-    private array $vars = array();
-    private DataContainer $variables;
+    protected array $vars = array();
+    protected DataContainer $variables;
 
     /**
      * @param string $templates_dir Ruta de la carpeta de plantillas a usar
      */
-    private string $templates_dir;
+    protected string $templates_dir;
 
     /**
      * @param string $templates_extension Extensión de las plantillas
      */
-    private string $templates_extension;
+    protected string $templates_extension;
 
     /**
      * Constructor por defecto de la clase
@@ -120,10 +120,10 @@ class TemplateRender
 
     /**
      * Permite setear todas las variables de la plantilla mediante un array asociativo
-     * @param array<string, string> $vars Array asociativo de variables para usar en la plantilla
+     * @param iterable<string, string> $vars Array asociativo de variables para usar en la plantilla
      * @return TemplateRender
      */
-    public function setVars(array $vars): self
+    public function setVars(iterable $vars): self
     {
         foreach ($vars as $name => $value) {
             $this->setVar($name, $value);
@@ -154,7 +154,7 @@ class TemplateRender
 
     /**
      * Devuelve todo el array de variables de la plantilla
-     * @return array<string, string> Arreglo de las variables seteadas
+     * @return iterable<string, string> Arreglo de las variables seteadas
      */
     public function getVars(): DataTransferInterface
     {
@@ -210,51 +210,57 @@ class TemplateRender
     /**
      * Renderiza e interpreta la plantilla indicada con las variables pasadas
      * @param string $template Nombre de la plantilla a renderizar
-     * @param array<string, string> $vars Array asociativo de variables para usar en la plantilla
+     * @param iterable<string, string> $vars Array asociativo de variables para usar en la plantilla
      * @return string|false Resultado de la renderización de la plantilla
      */
-    public function render(string $template, array $vars = []): string|false
+    public function render(string $template, ?iterable $vars = null): string|false
     {
+        /*
         if (!empty($vars)) {
-            //$this->setVars($vars);
+            $this->setVars($vars);
         }
-        //        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
-
+        $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
+        */
         ob_start();
         ob_clean();
         $this->fetch($template, $vars);
         //        include_once $filename;
         $content = ob_get_clean();
-
+        /*
         if (count($vars) > 0) {
             foreach (array_keys($vars) as $var) {
-                //$this->variables->remove($var);
+                $this->variables->remove($var);
             }
         }
+        */
         return $content;
     }
 
     /**
      * Permite incorporar otra plantilla a la plantilla en uso
      * @param string $template Nombre de la plantilla a integrar
-     * @param array<string, string> $vars Array asociativo de variables para usar en la plantilla
+     * @param iterable<string, string> $vars Array asociativo de variables para usar en la plantilla
      */
-    protected function fetch(string $template, array $vars = []): void
+    protected function fetch(string $template, ?iterable $vars = null)
     {
         $globals = json_decode(json_encode($this->variables), true);
         extract($globals);
         if (!empty($vars)) {
             extract($vars);
+            /*
             foreach ($vars as $var => $value) {
-                //$this->setVar($var, $value);
+                $this->setVar($var, $value);
             }
+            */
         }
         $filename = str_replace("//", DIRECTORY_SEPARATOR, str_replace("\\", DIRECTORY_SEPARATOR, $this->templates_dir . DIRECTORY_SEPARATOR . $template . '.' . $this->templates_extension));
 
         include $filename;
+        /*
         foreach (array_keys($vars) as $var) {
-            //$this->variables->remove($var);
+            $this->variables->remove($var);
         }
+        */
     }
 
 }
