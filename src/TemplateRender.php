@@ -243,7 +243,8 @@ class TemplateRender
      */
     protected function fetch(string $template, ?iterable $vars = null)
     {
-        $globals = json_decode(json_encode($this->variables), true);
+        //$globals = json_decode(json_encode($this->variables), true);
+        $globals = $this->variables->jsonSerialize();
         extract($globals);
         if (!empty($vars)) {
             extract($vars);
