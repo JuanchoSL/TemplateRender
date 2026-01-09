@@ -4,7 +4,6 @@
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/JuanchoSL/TemplateRender",
-    "minimum-stability": "dev",
     "keywords": [
         "template"
     ],
@@ -19,7 +18,7 @@
         "php": "^7.1 || ^8.0",
         "ext-mbstring": "*",
         "ext-fileinfo": "*",
-        "juanchosl/datatransfer":"dev-develop"
+        "juanchosl/datatransfer":"^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "9.6.*",
