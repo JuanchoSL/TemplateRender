@@ -19,6 +19,7 @@
         "php": "^7.1 || ^8.0",
         "ext-mbstring": "*",
         "ext-fileinfo": "*",
+        "ext-json": "*",
         "juanchosl/datatransfer": "^1.0"
     },
     "require-dev": {
