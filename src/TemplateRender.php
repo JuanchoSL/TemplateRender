@@ -245,7 +245,9 @@ class TemplateRender
     {
         //$globals = json_decode(json_encode($this->variables), true);
         $globals = $this->variables->jsonSerialize();
-        extract($globals);
+        if (!empty($globals)) {
+            extract($globals);
+        }
         if (!empty($vars)) {
             extract($vars);
             /*
